@@ -7,52 +7,47 @@ import java.util.Date;
  */
 public class Clock {
 
-	private static long last;
-	private static Date time;
-	private static SimpleDateFormat form = new SimpleDateFormat("hh:mm:ss");
+	private static long _last;
+	private static Date _time;
+	private static SimpleDateFormat _format = new SimpleDateFormat("hh:mm:ss");
 
-	public static boolean setTime(String newTime){
-		last = System.currentTimeMillis();
+	protected static boolean setTime(String newTime){
+		_last = System.currentTimeMillis();
 		try{
-			time = form.parse(newTime);
+			_time = _format.parse(newTime);
 		}catch(ParseException er){
 			return false;
 		}
 		return true;
 	}
 
-	public static void setSystemTime(){
-		time = null;
+	protected static void setSystemTime(){
+		_time = null;
 	}
 
-
-	public static String getTime(){
-		if(time != null){
-			return form.format(new Date(time.getTime() + (System.currentTimeMillis()- last)));
-		}else{
-			return form.format(new Date());
-		}
+	protected static String getTime(){
+		if(_time != null)
+			return _format.format(new Date(_time.getTime() + (System.currentTimeMillis()- _last)));
+	
+		return _format.format(new Date());
 	}
 
-	public static Date getDate(){
-		if(time != null){
-			return new Date(time.getTime() + (System.currentTimeMillis()- last));
-		}else{
-			return new Date();
-		}
+	protected static Date getDate(){
+		if(_time != null)
+			return new Date(_time.getTime() + (System.currentTimeMillis()- _last));
+		
+		return new Date();	
 	}
 
-
-	public static long getLong(){
-		if(time != null){
-			return  time.getTime() + (System.currentTimeMillis()- last);
-		}else{
-			return System.currentTimeMillis();
-		}
+	protected static long getLong(){
+		if(_time != null)
+			return  _time.getTime() + (System.currentTimeMillis()- _last);
+		
+		return System.currentTimeMillis();
 	}
 
-	public static String format(Date date){
-		return form.format(date);
+	protected static String format(Date date){
+		return _format.format(date);
 	}
 }
 

@@ -9,35 +9,36 @@ public class Racer {
     private String _name;
     private String _raceTime;
     
-    public Racer(String id) {
+    protected Racer(String id) {
         _name = id;
     }
     
-    public void start() {
+    protected String getName() {
+    	return _name;
+    }
+    
+    protected void start() {
         _start = Clock.getLong();
     }
     
-    public void end() {
+    protected void end() {
         _end = Clock.getLong();
         _raceTime = format(_end - _start);
     }
     
-    public void DNF() {
+    protected void DNF() {
         _raceTime = "DNF";
     }
     
-    public String print() {
+    protected void print() {
     	
         if(_raceTime == null)
-            throw new IllegalStateException();
+            return;
         
-       if(_raceTime.equalsIgnoreCase("DNF"))
-           return _name +" , " + _raceTime;
-       
-       return _name + " , " + _raceTime;
+       Printer.print(_name +" , " + _raceTime);
     }
     
-    private static String format(long duration) {
+    protected static String format(long duration) {
     	
         double dur = new Long(duration).doubleValue();
         double second = 1000.0;

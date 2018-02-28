@@ -1,4 +1,7 @@
 import java.text.SimpleDateFormat;
+
+import jdk.nashorn.internal.parser.Parser;
+
 /**
  * This is the controller class for the ChronoTimer.
  * @author Matt
@@ -16,7 +19,6 @@ public class Controller {
 	public Controller() {
 		// set Defaults
 		_parser = new Parser();
-		_eventType = "IND";			
 		_channels = new Channel[num_of_channels];
 		_power = false;
 
@@ -26,8 +28,14 @@ public class Controller {
 
 	}
 
-	private void power() {
-		_power = !_power;
+	private void powerON() {
+		_power = true;
+		reset();
+		Clock.setSystemTime();
+	}
+	
+	private void powerOFF() {
+		_power = false;
 	}
 
 	private void setTime(String time) {
@@ -37,7 +45,7 @@ public class Controller {
 	private void reset() {
 		_currentRun = null;
 		_eventType = "IND";
-
+		Clock.setSystemTime();
 		for(Channel c: _channels) {
 			if(c.getState())
 				c.toggleState();
@@ -67,38 +75,40 @@ public class Controller {
 	}
 
 	private void connect(int index, String sensor) {
-
 			_channels[index].setSensor(sensor);
-
 	}
 
 	private void printRun() {
-
 		_currentRun.print();
 	}
 
 	public void execute(String line) {
-
+		
+		_parser.parse();
+		String command;
+		if (command = _parser.getCommand()) == null)
+			return;
+		
 		try {
-			String[] args = line.split(" ");
+			String[] args = command.split(" ");
 
 			switch(args[0]) {
-
-			case "POWER":	power(); 	return;
+			
 			case "RESET":	reset(); 	return;
-			case "TIME" :	setTime(args[1]); return;
-			case "TOG" 	:	toggle(_channels[Integer.parseInt(args[1]) - 1]); return;
-			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1])] - 1); return;
-			case "CONN" :	connect(Integer.parseInt(args[1]) - 1, args[1]); return;
-			case "EVENT":	_eventType = args[1]; return;
 			case "NEWRUN":	newRun(); 	return;
 			case "ENDRUN":  endRun(); 	return;
 			case "PRINT" : 	printRun(); return;
-			case "NUM" 	: 	_currentRun.addRacer(args[1]); return;
+			case "TIME" :	setTime(args[1]); return;
 			case "SWAP" : 	_currentRun.swap(); return;
 			case "DNF" 	: 	_currentRun.DNF(); 	return;
+			case "EVENT":	_eventType = args[1]; return;
 			case "START": 	trigger(_channels[0]); return;
 			case "FINISH":  trigger(_channels[1]); return;
+			case "NUM" 	: 	_currentRun.addRacer(args[1]); return;
+			case "POWER":	if(_power) powerOFF(); else powerON(); return;
+			case "TOG" 	:	toggle(_channels[Integer.parseInt(args[1]) - 1]); return;
+			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1])] - 1); return;
+			case "CONN" :	connect(Integer.parseInt(args[1]) - 1, args[1]); return;
 			}
 			
 		}catch(Exception e){
