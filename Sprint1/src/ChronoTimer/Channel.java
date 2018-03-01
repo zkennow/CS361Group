@@ -12,31 +12,52 @@ public class Channel {
 	private int _channelNum;
 	
 	public Channel(int channelNum) {
-		_state = false;
-		_sensor = null;//initialize sensor?
 		_channelNum = channelNum;
 	}
 	
-	protected void toggleState() {					//toggles state
+	/**
+	 * Toggles the state of the channel.
+	 */
+	protected void toggleState() {
 		if (_state)
 			_state = false;
 		else
 			_state = true;
 	}
 	
-	protected void setSensor(String sensor) {		//set sensor type
+	/**
+	 * Connects a sensor to this channel.
+	 * 
+	 * @param sensor - the sensor being connected
+	 */
+	protected void setSensor(String sensor) {
 		_sensor = sensor;
 	}
 	
-	protected boolean getState() {					//returns current state
+	/**
+	 * Gets the state of this channel.
+	 * 
+	 * @return state of channle on = true, off = false
+	 */
+	protected boolean getState() {
 		return _state;
 	}
 	
-	protected String getSensor() {					//returns sensor type
+	/**
+	 * Gets the sensor connected to this channel.
+	 * 
+	 * @return sensor of this channel
+	 */
+	protected String getSensor() {
 		return _sensor;
 	}
 	
-	protected int getNum() {						//returns current channel num
+	/**
+	 * Gets the number associated to this channel.
+	 * 
+	 * @return number of channel
+	 */
+	protected int getNum() {
 		return _channelNum;
 	}
 	
