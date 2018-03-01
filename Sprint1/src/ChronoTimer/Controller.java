@@ -1,5 +1,4 @@
 package ChronoTimer;
-import java.text.SimpleDateFormat;
 /**
  * The controller for the ChronoTimer.
  * This is the Interface for the ChronoTimer package.
@@ -129,8 +128,8 @@ public class Controller {
 	public void execute(String line) {
 		
 		_parser.parse(line);
-		String command;
-		if (command = _parser.getCommand()) == null)
+		String command = _parser.getCommand();
+		if (command == null)
 			return;
 		
 		try {
@@ -151,7 +150,7 @@ public class Controller {
 			case "NUM" 	: 	_currentRun.addRacer(args[1]); return;
 			case "POWER":	if(_power) powerOFF(); else powerON(); return;
 			case "TOG" 	:	toggle(_channels[Integer.parseInt(args[1]) - 1]); return;
-			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1])] - 1); return;
+			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1]) -1]); return;
 			case "CONN" :	connect(_channels[Integer.parseInt(args[2]) - 1], args[1]); return;
 			}
 			

@@ -1,3 +1,10 @@
+package ChronoTimer;
+/**
+ * The channel for the 
+ * 
+ * @author Nic
+ *
+ */
 public class Channel {
 	
 	private boolean _state;

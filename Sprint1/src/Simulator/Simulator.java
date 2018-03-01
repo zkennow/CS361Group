@@ -3,8 +3,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-
-import ATM.*;
+import ChronoTimer.Controller;
 
 public class Simulator {
 	
@@ -31,18 +30,20 @@ public class Simulator {
 		
 		if (str.equalsIgnoreCase("c")) { 									//do command prompt input
 			
-			SimpleDateFormat format; // need?
+			SimpleDateFormat format;
 			
 			while (!str.equals("EXIT")) {									//loop until EXIT
 
 				str = stdIn.nextLine();
+				format = new SimpleDateFormat("hh:mm:ss");
+				str = format.format(new Date()) + " " + str;
 				if (str.trim().equals("EXIT"))								//EXIT command
 					break;
-				//TODO append time to beginning of str
+				
 				c.execute(str);												//try to execute command
 				
 			}
-			c.powerOFF();													//power off and exit simulation
+			c.execute("POWER");												//power off and exit simulation
 		}
 		else { 																//do file read input
 			try {
@@ -55,7 +56,7 @@ public class Simulator {
 					c.execute(str);											//try to execute command
 			
 				}
-				c.powerOFF();												//power off and exit simulation
+				c.execute("POWER");											//power off and exit simulation
 				fileScanner.close();
 				
 			} catch (Exception ex) {
