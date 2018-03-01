@@ -36,7 +36,7 @@ public class Controller {
 	/**
 	 * Turns the power off.
 	 */
-	private void powerOFF() {
+	public void powerOFF() {
 		_power = false;
 	}
 
