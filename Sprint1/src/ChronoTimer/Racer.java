@@ -11,6 +11,11 @@ public class Racer {
     private long _end;			// end time
     private String _raceTime;	// total race time
     
+    /**
+     * Creates a racer with name id.
+     * 
+     * @param id - the name of the racer
+     */
     protected Racer(String id) {
         _name = id;
     }

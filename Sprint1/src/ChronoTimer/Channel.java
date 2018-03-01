@@ -3,7 +3,6 @@ package ChronoTimer;
  * The channel for the ChronoTimer.
  * 
  * @author Nic
- *
  */
 public class Channel {
 	
@@ -11,7 +10,7 @@ public class Channel {
 	private String _sensor;
 	private int _channelNum;
 	
-	public Channel(int channelNum) {
+	protected Channel(int channelNum) {
 		_channelNum = channelNum;
 	}
 	

@@ -8,7 +8,7 @@ public class Parser {
 
 	private String _parsedCommand;
 	
-	public Parser() {
+	protected Parser() {
 		_parsedCommand = null;
 	}
 	
@@ -28,7 +28,6 @@ public class Parser {
 			str = str.substring(str.indexOf("	")).trim();		 // parse out time
 			
 			_parsedCommand = str;								 // sets command to parsed command
-	
 	}
 	
 	/**

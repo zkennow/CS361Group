@@ -12,8 +12,6 @@ import ChronoTimer.Controller;
  */
 public class Simulator {
 
-	public Simulator() { }
-
 	public static void main(String[] args) {
 
 		Controller c = new Controller();
