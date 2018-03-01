@@ -42,7 +42,7 @@ public class Simulator {
 				c.execute(str);												//try to execute command
 				
 			}
-			c.powerOFF();												   //power off and exit simulation
+			c.powerOFF();												//power off and exit simulation
 		}
 		else { 																//do file read input
 			try {
