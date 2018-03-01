@@ -31,11 +31,11 @@ public class Parser {
 	}
 	
 	/**
-	 * Gets the parsed command.
+	 * Gets the parsed command and clears the command buffer.
 	 * 
 	 * @return the parsed command
 	 */
-	protected String getCommand() {								 // returns command and resets state
+	protected String getCommand() {
 		
 		String str = _parsedCommand;
 		_parsedCommand = null;									 // clears command

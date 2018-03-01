@@ -128,6 +128,7 @@ public class Run {
 	/**
 	 * @return size of racing queue.
 	 */
+	
 	private int racingQueueSize() {
 		return _racing.size();
 	}

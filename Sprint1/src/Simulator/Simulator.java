@@ -14,56 +14,53 @@ public class Simulator {
 
 	public static void main(String[] args) {
 
-		Controller c = new Controller();
+		Controller chronoTimer = new Controller();
 
 		Scanner stdIn = new Scanner(System.in);
 
-		String str = "bloop-dee-doop";
-		while (!(str.equalsIgnoreCase("f") || str.equalsIgnoreCase("c"))) { // ask for input method
-			System.out.print("(f)ile read or (c)ommand prompt?:");
-			str = stdIn.nextLine();
+		String userInput = "bloop-dee-doop";
+		while (!(userInput.equalsIgnoreCase("f") || userInput.equalsIgnoreCase("c"))) { 
+			System.out.print("(f)ile or (c)onsole?:");							// ask for input method
+			userInput = stdIn.nextLine();
 		}
+		
+		System.out.println();
 
-		if (str.equalsIgnoreCase("c")) { 									// do command prompt input
+		if (userInput.equalsIgnoreCase("c")) { 									// do console prompt input
 
+			String command;
 			SimpleDateFormat format;
 
-			while (!str.equals("EXIT")) {									// loop until EXIT
+			while (!userInput.equals("EXIT")) {									// loop until EXIT
 
-				str = stdIn.nextLine();
-
-				if (str.trim().equalsIgnoreCase("EXIT"))					// EXIT command
-					break;
+				userInput = stdIn.nextLine();
 				
 				format = new SimpleDateFormat("hh:mm:ss");
-				str = format.format(new Date()) + " " + str;
+				command = format.format(new Date()) + "	" + userInput;			// prepend time to command
 
-				c.execute(str);												// execute command
+				chronoTimer.execute(command);									// execute command
 
 			}
 
-			c.powerOFF();													// power off and exit simulation
-
 		}
-		else { 																// do file read input
-
+		else { 																	// do file read input
+			System.out.print("Enter file name: ");								// prompt for file name
+			String fileName = stdIn.next();
 			Scanner fileScanner;
 			try {
 				
-				//change file name to match test file
-				fileScanner = new Scanner(new File("sampRun.txt"));			// hard code name of test file
+				fileScanner = new Scanner(new File(fileName));					// open scanner for file
 
-				while (fileScanner.hasNext()) {								// loop until EXIT
-					str = fileScanner.nextLine();
-					System.out.println(str);								// print command
+				while (fileScanner.hasNext()) {									// loop until EXIT
+					userInput = fileScanner.nextLine();
+					System.out.println(userInput);								// print command
 					
-					if (str.endsWith("EXIT"))								// EXIT command
+					if (userInput.endsWith("EXIT"))								// EXIT command
 						break;
 					
-					c.execute(str);											// try to execute command
+					chronoTimer.execute(userInput);								// try to execute command
 
 				}
-				c.powerOFF();												// power off and exit simulation
 				fileScanner.close();
 
 			} catch (FileNotFoundException e) {
@@ -71,10 +68,10 @@ public class Simulator {
 				
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				System.out.println("Error");
 			}
 
 		}
+		chronoTimer.powerOFF();												// power off and exit simulation
 		System.out.println("\nSIMULATION TERMINATING");						// simulation end
 		stdIn.close();	
 	}

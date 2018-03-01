@@ -18,10 +18,7 @@ public class Channel {
 	 * Toggles the state of the channel.
 	 */
 	protected void toggleState() {
-		if (_state)
-			_state = false;
-		else
-			_state = true;
+		_state = !_state;
 	}
 	
 	/**

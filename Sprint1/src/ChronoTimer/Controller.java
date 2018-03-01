@@ -66,7 +66,7 @@ public class Controller {
 	 * Creates a new run if there isn't a current run in progress.
 	 */
 	private void newRun() {
-		if (_currentRun == null)
+		if (!hasCurrentRun())
 			_currentRun = new Run(_eventType);
 	}
 	
@@ -83,7 +83,8 @@ public class Controller {
 	 * @param chan - the channel to toggle
 	 */
 	private void toggle(Channel chan) {
-		chan.toggleState();
+		if(chan != null)
+			chan.toggleState();
 	}
 
 	/**
@@ -92,12 +93,15 @@ public class Controller {
 	 * @param chan - the channel to trigger
 	 */
 	private void trigger(Channel chan) {
-
+		
+		if(!hasCurrentRun())
+			return;
+		
 		// for IND races i.e. sprint 1
-		if(chan.getNum() == 1) 
+		if(chan.getNum() == 1 && chan.getState()) 
 			_currentRun.start();
 
-		else if (chan.getNum() == 2)
+		else if (chan.getNum() == 2 && chan.getState())
 			_currentRun.finish();
 	}
 
@@ -108,6 +112,7 @@ public class Controller {
 	 * @param sensor - the sensor to connect.
 	 */
 	private void connect(Channel chan, String sensor) {
+		if(chan != null)
 			chan.setSensor(sensor);
 	}
 
@@ -115,7 +120,15 @@ public class Controller {
 	 * Prints the results of the current run.
 	 */
 	private void printRun() {
-		_currentRun.print();
+		if(hasCurrentRun())
+			_currentRun.print();
+	}
+	
+	/**
+	 * @return true if there is a current run
+	 */
+	private boolean hasCurrentRun() {
+		return _currentRun != null;
 	}
 
 	/**
@@ -129,7 +142,7 @@ public class Controller {
 		
 		_parser.parse(line);
 		String command = _parser.getCommand();
-		
+
 		// return if command is null or power is off and command is not POWER
 		if (command == null || (!_power && !command.equals("POWER")))
 			return;
@@ -144,15 +157,15 @@ public class Controller {
 			case "ENDRUN":  endRun(); 	return;
 			case "PRINT" : 	printRun(); return;
 			case "TIME" :	setTime(args[1]); return;
-			case "SWAP" : 	_currentRun.swap(); return;
-			case "DNF" 	: 	_currentRun.DNF(); 	return;
 			case "EVENT":	_eventType = args[1]; return;
 			case "START": 	trigger(_channels[0]); return;
 			case "FINISH":  trigger(_channels[1]); return;
-			case "NUM" 	: 	_currentRun.addRacer(args[1]); return;
 			case "POWER":	if(_power) powerOFF(); else powerON(); return;
+			case "SWAP" : 	if(hasCurrentRun()) _currentRun.swap(); return;
+			case "DNF" 	: 	if(hasCurrentRun()) _currentRun.DNF(); 	return;	
 			case "TOG" 	:	toggle(_channels[Integer.parseInt(args[1]) - 1]); return;
 			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1]) -1]); return;
+			case "NUM" 	: 	if(hasCurrentRun()) _currentRun.addRacer(args[1]); return;
 			case "CONN" :	connect(_channels[Integer.parseInt(args[2]) - 1], args[1]); return;
 			}
 			
