@@ -14,6 +14,6 @@ public class Printer {
 	 * @param msg - the String to be printed.
 	 */
 	protected static void print(String msg) {
-		System.out.println(msg);
+		System.out.println(msg);	
 	}
 }

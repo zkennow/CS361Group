@@ -47,20 +47,21 @@ public class Simulator {
 			System.out.print("Enter file name: ");								// prompt for file name
 			String fileName = stdIn.next();
 			Scanner fileScanner;
+			
 			try {
-				
 				fileScanner = new Scanner(new File(fileName));					// open scanner for file
 
 				while (fileScanner.hasNext()) {									// loop until EXIT
 					userInput = fileScanner.nextLine();
 					System.out.println(userInput);								// print command
-					
+				
 					if (userInput.endsWith("EXIT"))								// EXIT command
 						break;
 					
 					chronoTimer.execute(userInput);								// try to execute command
 
 				}
+
 				fileScanner.close();
 
 			} catch (FileNotFoundException e) {
