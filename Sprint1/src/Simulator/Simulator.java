@@ -26,8 +26,6 @@ public class Simulator {
 			str = stdIn.nextLine();
 		}
 
-		
-		
 		if (str.equalsIgnoreCase("c")) { 									//do command prompt input
 			
 			SimpleDateFormat format;
@@ -35,15 +33,16 @@ public class Simulator {
 			while (!str.equals("EXIT")) {									//loop until EXIT
 
 				str = stdIn.nextLine();
-				format = new SimpleDateFormat("hh:mm:ss");
-				str = format.format(new Date()) + " " + str;
 				if (str.trim().equals("EXIT"))								//EXIT command
 					break;
+				format = new SimpleDateFormat("hh:mm:ss");
+				str = format.format(new Date()) + " " + str;
+				
 				
 				c.execute(str);												//try to execute command
 				
 			}
-			c.execute("POWER");												//power off and exit simulation
+			c.powerOFF();												   //power off and exit simulation
 		}
 		else { 																//do file read input
 			try {
