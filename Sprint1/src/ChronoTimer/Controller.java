@@ -133,7 +133,7 @@ public class Controller {
 		// return if command is null or power is off and command is not POWER
 		if (command == null || (!_power && !command.equals("POWER")))
 			return;
-		
+
 		try {
 			String[] args = command.split(" ");
 
@@ -157,6 +157,7 @@ public class Controller {
 			}
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			return;
 		}
 	}

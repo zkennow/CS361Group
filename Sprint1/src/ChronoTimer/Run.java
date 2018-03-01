@@ -31,7 +31,7 @@ public class Run {
 	 */
 	protected void addRacer(String id) {
 		Racer racer = new Racer(id);
-		_waiting.addLast(racer);
+		_waiting.push(racer);
 	}
 
 	/**

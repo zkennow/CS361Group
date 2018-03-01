@@ -16,20 +16,26 @@ public class Parser {
 	
 	public void parse(String line) {	
 		
-		if (_parsed != true) {								//does nothing has been parsed
-			String str = line.trim(); 						//trim command
-			str = str.substring(str.indexOf(" ")).trim();	//parse out time
-			_parsedCommand = str;							//sets command to parsed command
-			_parsed = true;									//sets parsed flag true
+		if (_parsed != true) {								// does nothing has been parsed
+			String str = line.trim(); 						// trim command
+			
+			if(!str.contains("	"))							// if str doesn't contain tab return
+				return;
+			
+			Clock.setTime(str.substring(0, str.indexOf("	")));
+			str = str.substring(str.indexOf("	")).trim();	// parse out time
+			
+			_parsedCommand = str;							// sets command to parsed command
+			_parsed = true;									// sets parsed flag true
 		}
 	}
 	
-	protected String getCommand() {							//returns command and resets state
+	protected String getCommand() {							// returns command and resets state
 		
 		String str = _parsedCommand;
-		_parsedCommand = null;								//clears command
-		_parsed = false;									//resets parsed flag
-		return str;											//returns command
+		_parsedCommand = null;								// clears command
+		_parsed = false;									// resets parsed flag
+		return str;											// returns command
 	}
 	
 }

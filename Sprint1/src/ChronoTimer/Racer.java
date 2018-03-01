@@ -49,10 +49,10 @@ public class Racer {
      */
     protected void print() {
     	
-        if(_raceTime == null)
-            return;
+        //if(_raceTime == null)
+            //return;
         
-       Printer.print(_name +" , " + _raceTime);
+       Printer.print(_name + " " + _raceTime);
     }
     
     /**
