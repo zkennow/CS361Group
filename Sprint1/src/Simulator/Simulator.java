@@ -4,7 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import ChronoTimer.Controller;
-
+/**
+ * This is the simulator for the ChronoTimer
+ * 
+ * @author Nic
+ */
 public class Simulator {
 	
 	public Simulator() { }
@@ -33,29 +37,31 @@ public class Simulator {
 			while (!str.equals("EXIT")) {									//loop until EXIT
 
 				str = stdIn.nextLine();
-				if (str.trim().equals("EXIT"))								//EXIT command
+
+				if (str.trim().equalsIgnoreCase("EXIT"))					//EXIT command
 					break;
 				format = new SimpleDateFormat("hh:mm:ss");
 				str = format.format(new Date()) + " " + str;
-				
-				
+
 				c.execute(str);												//try to execute command
 				
 			}
-			c.powerOFF();												//power off and exit simulation
+
+			c.powerOFF();													//power off and exit simulation
+
 		}
 		else { 																//do file read input
 			try {
-				Scanner fileScanner = new Scanner(new File("test.txt")); 	//change file name to match test file
+				Scanner fileScanner = new Scanner(new File("CTS1RUN2.txt")); 	//change file name to match test file
 				
 				while (fileScanner.hasNext()) {								//loop until EXIT
 					str = stdIn.nextLine();
-					if (str.equals("EXIT"))									//EXIT command
+					if (str.endsWith("EXIT"))								//EXIT command
 						break;
 					c.execute(str);											//try to execute command
 			
 				}
-				c.execute("POWER");											//power off and exit simulation
+				c.powerOFF();										//power off and exit simulation
 				fileScanner.close();
 				
 			} catch (Exception ex) {

@@ -1,6 +1,6 @@
 package ChronoTimer;
 /**
- * The channel for the 
+ * The channel for the ChronoTimer.
  * 
  * @author Nic
  *

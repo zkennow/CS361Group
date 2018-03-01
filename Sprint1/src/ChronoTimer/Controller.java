@@ -129,7 +129,9 @@ public class Controller {
 		
 		_parser.parse(line);
 		String command = _parser.getCommand();
-		if (command == null)
+		
+		// return if command is null or power is off and command is not POWER
+		if (command == null || (!_power && !command.equals("POWER")))
 			return;
 		
 		try {
