@@ -35,15 +35,15 @@ public class Simulator {
 			while (!str.equals("EXIT")) {									//loop until EXIT
 
 				str = stdIn.nextLine();
+				if (str.trim().equalsIgnoreCase("EXIT"))					//EXIT command
+					break;
 				format = new SimpleDateFormat("hh:mm:ss");
 				str = format.format(new Date()) + " " + str;
-				if (str.trim().equals("EXIT"))								//EXIT command
-					break;
 				
 				c.execute(str);												//try to execute command
 				
 			}
-			c.execute("POWER");												//power off and exit simulation
+			c.powerOFF();													//power off and exit simulation
 		}
 		else { 																//do file read input
 			try {
@@ -51,12 +51,12 @@ public class Simulator {
 				
 				while (fileScanner.hasNext()) {								//loop until EXIT
 					str = stdIn.nextLine();
-					if (str.equals("EXIT"))									//EXIT command
+					if (str.endsWith("EXIT"))								//EXIT command
 						break;
 					c.execute(str);											//try to execute command
 			
 				}
-				c.execute("POWER");											//power off and exit simulation
+				c.powerOFF();										//power off and exit simulation
 				fileScanner.close();
 				
 			} catch (Exception ex) {

@@ -148,7 +148,7 @@ public class Controller {
 			case "START": 	trigger(_channels[0]); return;
 			case "FINISH":  trigger(_channels[1]); return;
 			case "NUM" 	: 	_currentRun.addRacer(args[1]); return;
-			case "POWER":	if(_power) powerOFF(); else powerON(); System.out.println("pwrd"); return;
+			case "POWER":	if(_power) powerOFF(); else powerON(); return;
 			case "TOG" 	:	toggle(_channels[Integer.parseInt(args[1]) - 1]); return;
 			case "TRIG" :	trigger(_channels[Integer.parseInt(args[1]) -1]); return;
 			case "CONN" :	connect(_channels[Integer.parseInt(args[2]) - 1], args[1]); return;

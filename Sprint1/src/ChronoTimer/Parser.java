@@ -16,7 +16,7 @@ public class Parser {
 	
 	public void parse(String line) {	
 		
-		if (_parsedCommand != null && _parsed != true) {	//does nothing if no command or has been parsed
+		if (_parsed != true) {								//does nothing has been parsed
 			String str = line.trim(); 						//trim command
 			str = str.substring(str.indexOf(" ")).trim();	//parse out time
 			_parsedCommand = str;							//sets command to parsed command
