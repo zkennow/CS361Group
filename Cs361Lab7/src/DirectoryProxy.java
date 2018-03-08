@@ -4,7 +4,7 @@ public class DirectoryProxy implements Directory {
 	MainDirectory _main;
 	
 	// should constructor take MainDirectory as param?
-	public DirectoryProxy() {
+	public DirectoryProxy(MainDirectory main) {
 		_main = main;
 	}
 	
