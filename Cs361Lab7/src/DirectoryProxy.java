@@ -13,7 +13,7 @@ public class DirectoryProxy implements Directory {
 	}
 	
 	public void print() {
-		_main.print();
+		_main.print(); 
 	}
 	
 	public void clear() {
