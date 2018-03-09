@@ -1,22 +1,19 @@
 
 public class DirectoryProxy implements Directory {
 
-	MainDirectory _main;
+	Transport _trans = new Transport();
 	
-	// should constructor take MainDirectory as param?
-	public DirectoryProxy(MainDirectory main) {
-		_main = main;
-	}
+	public DirectoryProxy() {}
 	
 	public void add(String JsonString) {
-		_main.add(JsonString);
+		_trans.addJson(JsonString);
 	}
 	
 	public void print() {
-		_main.print(); 
+		_trans._main.print();
 	}
 	
 	public void clear() {
-		_main.clear();
+		_trans._main.clear();
 	}
 }

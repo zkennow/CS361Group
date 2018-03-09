@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import com.google.gson.Gson;
@@ -12,40 +14,98 @@ public class DirectoryEditor {
 		Gson gson = new Gson();
 		String input;
 		String[]data;
-		
+
 		System.out.println("-- Hello --\n");
-		
+
+		// get input type ('c' or 'f')
 		do {
+			System.out.print("[C]onsole or [F]ile: ");
+			input = stdIn.next();
+		}while(!(equal(input, "C") || equal(input, "F")));
 
-			input = stdIn.nextLine();
+		// Console
+		if(equal(input, "C")){
 
-			if(equal("add", input)) {
+			do {
 
-				while(!equal("END", input)) {
+				input = stdIn.nextLine();
 
-					input = stdIn.nextLine();		// get next line
-					data = input.split(" ");		// split input string into employee data
+				if(equal("add", input)) {
 
-					if(data.length == 4) 			// if valid Employee data
-						collection.add(new Employee(data[0], data[1], data[2], data[3]));
+					while(true) {
 
+						input = stdIn.nextLine();		// get next line
+						data = input.split(" ");		// split input string into employee data
+
+						if(data.length == 4) 			// if valid Employee data
+							collection.add(new Employee(data[0], data[1], data[2], data[3]));
+
+						if(equal(input, "END")){
+														// Convert to Json & add it to Directory
+							DirProxy.add(gson.toJson(collection));
+							break;
+						}
+					}
 				}
-													// Convert to Json & add it to Directory
-				DirProxy.add(gson.toJson(collection));
+
+				if(equal("Print", input))				// Print
+					DirProxy.print();
+
+				if(equal("Clear", input))				// Clear
+					DirProxy.clear();
+
+			}while(!equal("Exit",input));				// Exit
+
+		}
+
+		// File
+		else {
+			
+			System.out.print("Name of file: ");
+			input = stdIn.nextLine();
+			
+			try {
+				stdIn = new Scanner(new File(input));
+			} catch (FileNotFoundException e) {
+				System.out.println("File not Found!!!");
+				e.printStackTrace();
 			}
 			
-			if(equal("Print", input))				// Print
-				DirProxy.print();
+			while(stdIn.hasNextLine()) {
+				
+				input = stdIn.nextLine();
 
-			if(equal("Clear", input))				// Clear
-				DirProxy.clear();
+				if(equal("add", input)) {
 
-		}while(!equal("Exit",input));				// Exit
+					while(stdIn.hasNextLine()) {
+
+						input = stdIn.nextLine();		// get next line
+						data = input.split(" ");		// split input string into employee data
+
+						if(data.length == 4) 			// if valid Employee data
+							collection.add(new Employee(data[0], data[1], data[2], data[3]));
+
+						if(equal(input, "END")){
+														// Convert to Json & add it to Directory
+							DirProxy.add(gson.toJson(collection));
+							break;
+						}
+					}
+				}
+
+				if(equal("Print", input))				// Print
+					DirProxy.print();
+
+				if(equal("Clear", input))				// Clear
+					DirProxy.clear();
+			}
+		}
 		
 		System.out.println("\n-- Goodbye --");
 		stdIn.close();
+		
 	}
-	
+
 	private static boolean equal(String s, String t) {
 		return s == null? false: s.equalsIgnoreCase(t); 
 	}
