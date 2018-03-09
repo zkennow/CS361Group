@@ -32,9 +32,10 @@ public class MainDirectory {
 		if(employees.isEmpty())
 			System.out.println("<Empty Directory>");
 		else {
-			for (Employee e: employees) {
+			for (Employee e: employees) 
 				System.out.println(e.toString());
-			}
+			System.out.println();
+			
 		}
 
 	}

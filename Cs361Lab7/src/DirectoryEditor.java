@@ -44,6 +44,7 @@ public class DirectoryEditor {
 						if(equal(input, "END")){
 														// Convert to Json & add it to Directory
 							DirProxy.add(gson.toJson(collection));
+							collection.clear();			// clear local collection
 							break;
 						}
 					}
@@ -63,6 +64,7 @@ public class DirectoryEditor {
 		else {
 			
 			System.out.print("Name of file: ");
+			input = stdIn.nextLine();
 			input = stdIn.nextLine();
 			
 			try {
@@ -89,15 +91,16 @@ public class DirectoryEditor {
 						if(equal(input, "END")){
 														// Convert to Json & add it to Directory
 							DirProxy.add(gson.toJson(collection));
+							collection.clear();			// clear local collection
 							break;
-						}
+						}	
 					}
 				}
 
 				if(equal("Print", input))				// Print
 					DirProxy.print();
 
-				if(equal("Clear", input))				// Clear
+				if(equal("Clear", input) || equal("clr", input))				// Clear
 					DirProxy.clear();
 			}
 		}
