@@ -14,6 +14,14 @@ public class Employee {
 		_phone = phone;
 	}
 	
+	public String getFirstName() {
+		return _name;
+	}
+	
+	public String getLastName() {
+		return _lname;
+	}
+	
 	@Override
 	public String toString() {
 		return _lname + ", " + _name + " " + _dept + " " + _phone;

@@ -27,8 +27,9 @@ public class DirectoryEditor {
 		if(equal(input, "C")){
 
 			do {
-
-				input = stdIn.nextLine();
+				
+				System.out.print("Enter command (or exit): ");
+				input = stdIn.next();
 
 				if(equal("add", input)) {
 
