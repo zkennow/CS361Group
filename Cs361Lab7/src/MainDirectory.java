@@ -4,17 +4,18 @@ import java.util.Comparator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class MainDirectory {
+public class MainDirectory implements Directory {
 
-	ArrayList<Employee> employees = new ArrayList<Employee>();
-	Gson gson = new Gson();
+	private ArrayList<Employee> _employees = new ArrayList<Employee>();
+	private Gson _gson = new Gson();
 
+	@Override
 	public void add(String json) {
 
-		employees.addAll(gson.fromJson(json, new TypeToken<ArrayList<Employee>>(){}.getType()));
+		_employees.addAll(_gson.fromJson(json, new TypeToken<ArrayList<Employee>>(){}.getType()));
 
 		// sort by last name (Code shared by Andy since we are now part of the same group).
-		Collections.sort(employees ,  new Comparator<Employee>() {
+		Collections.sort(_employees ,  new Comparator<Employee>() {
 			@Override
 			public int compare(Employee s1, Employee s2) {
 				int ret = s1.getLastName().compareToIgnoreCase(s2.getLastName());
@@ -27,21 +28,23 @@ public class MainDirectory {
 
 	}
 
+	@Override
 	public void print() {
 
-		if(employees.isEmpty())
-			System.out.println("<Empty Directory>");
+		if(_employees.isEmpty())
+			System.out.println("\n<Empty Directory>\n");
 		else {
-			for (Employee e: employees) 
+			System.out.println();
+			for (Employee e: _employees) 
 				System.out.println(e.toString());
 			System.out.println();
-			
 		}
 
 	}
 
+	@Override
 	public void clear() {
-		employees.clear();
+		_employees.clear();
 	}
 
 }

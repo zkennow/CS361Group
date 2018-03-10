@@ -1,19 +1,19 @@
-
 public class DirectoryProxy implements Directory {
 
-	Transport _trans = new Transport();
+	private Transport _trans = new Transport();
 	
-	public DirectoryProxy() {}
-	
+	@Override
 	public void add(String JsonString) {
 		_trans.addJson(JsonString);
 	}
 	
+	@Override
 	public void print() {
-		_trans._main.print();
+		_trans.print();
 	}
 	
+	@Override
 	public void clear() {
-		_trans._main.clear();
+		_trans.clear();
 	}
 }

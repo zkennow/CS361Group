@@ -11,103 +11,79 @@ public class DirectoryEditor {
 		DirectoryProxy DirProxy = new DirectoryProxy();
 		ArrayList<Employee> collection = new ArrayList<Employee>();
 		Scanner stdIn = new Scanner(System.in);
+		boolean consoleInput = true;
 		Gson gson = new Gson();
 		String input;
 		String[]data;
 
 		System.out.println("-- Hello --\n");
 
-		// get input type ('c' or 'f')
-		do {
+		do {											// get input type ('c' or 'f')
 			System.out.print("[C]onsole or [F]ile: ");
 			input = stdIn.next();
 		}while(!(equal(input, "C") || equal(input, "F")));
 
-		// Console
-		if(equal(input, "C")){
+		if(equal(input, "F")) {							// if file input
+			System.out.print("Name of file: ");			// get name of file
+			input = stdIn.next();						
 
-			do {
-				
-				System.out.print("Enter command (or exit): ");
-				input = stdIn.next();
-
-				if(equal("add", input)) {
-
-					while(true) {
-
-						input = stdIn.nextLine();		// get next line
-						data = input.split(" ");		// split input string into employee data
-
-						if(data.length == 4) 			// if valid Employee data
-							collection.add(new Employee(data[0], data[1], data[2], data[3]));
-
-						if(equal(input, "END")){
-														// Convert to Json & add it to Directory
-							DirProxy.add(gson.toJson(collection));
-							collection.clear();			// clear local collection
-							break;
-						}
-					}
-				}
-
-				if(equal("Print", input))				// Print
-					DirProxy.print();
-
-				if(equal("Clear", input))				// Clear
-					DirProxy.clear();
-
-			}while(!equal("Exit",input));				// Exit
-
-		}
-
-		// File
-		else {
-			
-			System.out.print("Name of file: ");
-			input = stdIn.nextLine();
-			input = stdIn.nextLine();
-			
 			try {
 				stdIn = new Scanner(new File(input));
+				consoleInput = false;
 			} catch (FileNotFoundException e) {
+				stdIn.close();
 				System.out.println("File not Found!!!");
 				e.printStackTrace();
 			}
-			
-			while(stdIn.hasNextLine()) {
-				
-				input = stdIn.nextLine();
-
-				if(equal("add", input)) {
-
-					while(stdIn.hasNextLine()) {
-
-						input = stdIn.nextLine();		// get next line
-						data = input.split(" ");		// split input string into employee data
-
-						if(data.length == 4) 			// if valid Employee data
-							collection.add(new Employee(data[0], data[1], data[2], data[3]));
-
-						if(equal(input, "END")){
-														// Convert to Json & add it to Directory
-							DirProxy.add(gson.toJson(collection));
-							collection.clear();			// clear local collection
-							break;
-						}	
-					}
-				}
-
-				if(equal("Print", input))				// Print
-					DirProxy.print();
-
-				if(equal("Clear", input) || equal("clr", input))				// Clear
-					DirProxy.clear();
-			}
 		}
-		
+
+		while(consoleInput || stdIn.hasNextLine() ) {
+
+			if(consoleInput) 
+				System.out.print("Enter command (or exit): ");
+
+			input = stdIn.next();						// get command
+
+			if(equal("Add", input)) {
+
+				if(consoleInput)
+					stdIn.nextLine();					// clear enter character
+
+				while(consoleInput || stdIn.hasNextLine()) {
+
+					if(consoleInput)
+						System.out.print("Employee (First Last Dept Phone), or (END): ");
+
+					input = stdIn.nextLine().trim();	// get next line
+
+					if(equal(input, "End")){
+														// Convert to Json & add it to MainDirectory
+						DirProxy.add(gson.toJson(collection));
+						collection.clear();				// clear local collection
+						break;
+					}
+
+					data = input.trim().split(" ");		// split input string into employee data
+
+					if(data.length == 4) 				// if valid Employee data add it to collection
+						collection.add(new Employee(data[0], data[1], data[2], data[3]));
+				}
+			}
+
+			if(equal("Print", input))					// Print
+				DirProxy.print();
+														// Clear
+			if(equal("Clear", input) || equal("clr", input))				
+				DirProxy.clear();
+
+			if(equal("Exit", input))					// Exit
+				break;
+
+		} 												// end of while
+
 		System.out.println("\n-- Goodbye --");
 		stdIn.close();
-		
+
 	}
 
 	private static boolean equal(String s, String t) {

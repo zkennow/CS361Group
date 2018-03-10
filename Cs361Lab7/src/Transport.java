@@ -4,8 +4,16 @@ public class Transport {
 
 	public Transport(){}
 
-	public void addJson(String jstr){
+	protected void addJson(String jstr){
 		_main.add(jstr);
+	}
+	
+	protected void print() {
+		_main.print();
+	}
+	
+	protected void clear() {
+		_main.clear();
 	}
 
 }

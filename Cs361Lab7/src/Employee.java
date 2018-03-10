@@ -6,7 +6,6 @@ public class Employee {
 	private String _dept;
 	private String _phone;
 	
-	
 	public Employee(String name, String lastName, String dept, String phone) {
 		_name = name;
 		_lname = lastName;
@@ -14,11 +13,11 @@ public class Employee {
 		_phone = phone;
 	}
 	
-	public String getFirstName() {
+	protected String getFirstName() {
 		return _name;
 	}
 	
-	public String getLastName() {
+	protected String getLastName() {
 		return _lname;
 	}
 	
